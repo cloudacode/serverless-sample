@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Serverless S3 Uploader</title>
+  <meta name="description" content="Demo serverless s3 uploader on AWS">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+
+      const assetIdForm = document.getElementById('asset-form');
+      const assetSection = document.getElementById('asset-section');
+      const resultsSection = document.getElementById('results-section');
+
+      assetIdForm.addEventListener('submit', event => {
+        event.preventDefault();
+
+        const input = document.getElementById('asset');
+        const file_name = input.value.replace(/C:\\fakepath\\/i, '')
+
+        // Change API Gateway URL
+        fetch('https://cloudacode.execute-api.ap-northeast-2.amazonaws.com/default/cloudacode-upload-function', {
+          method: 'POST',
+          headers: {
+            "filename": file_name
+          },
+          body: input.files[0]
+        })
+          .then(function (res) {
+            return res;
+            console.log(res.status);
+          })
+          .then(function (data) {
+            console.log('Request succeeded with response: ', data);
+            const responseHeader = document.querySelector('#response-header');
+            responseHeader.innerHTML = "StateCode : " + data.status + "<br />" + file_name + " has been uploaded to S3";
+
+            assetSection.classList.toggle('hide');
+            resultsSection.classList.toggle('hide');
+          })
+
+        console.log('Submitting...');
+        console.log(input.value.replace(/C:\\fakepath\\/i, ''));
+      });
+
+    });
+  </script>
+
+  <style>
+    .divider {
+      margin: 45px 0;
+    }
+
+    @media only screen and (min-width: 993px) {
+      .container {
+        width: 50%;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+
+    <div id="asset-section">
+
+      <div class="row">
+
+        <div class="section">
+
+          <div class="divider"></div>
+
+          <form id="asset-form" action="#">
+            <h5>Serverless S3 File Uploader</h5>
+            <div class="file-field input-field">
+              <div class="btn light-blue ">
+                <span>File</span>
+                <input type="file" id="asset" name="asset" accept="*">
+              </div>
+              <div class="file-path-wrapper">
+                <input class="file-path validate" type="text" placeholder="Choose a file">
+              </div>
+              <p>
+                <button class="btn indigo waves-effect waves-light darken-2" type="submit" name="action">upload
+                  <i class="material-icons right">file_upload</i>
+                </button>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+
+    <div id="results-section" class="hide">
+      <div class="row">
+        <div class="section center-align">
+          <h3 id="response-header"></h3>
+          <p id="response-message" class="flow-text"></p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+<footer>
+  <div class="container hide">cloudacode.com</div>
+</footer>
+</html>
