@@ -23,6 +23,9 @@ export API_ENDPOINT=<YOUR_API_ENDPOINT>
 ```
 locust -H $API_ENDPOINT
 ```
+
+Open http://127.0.0.1:8089 to access locust dashboard
+
 ![locust-dashboard](./locust-dashboard.png)
 
 ## X-Ray Monitoring
