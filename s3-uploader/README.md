@@ -35,6 +35,13 @@ API Gateway 에서 API를 받아서 Lambda를 호출
 >> Use `*/*` to treat all responses as binary data
 >>![apigateway-additional-settings](./images/apigateway-additional-settings.png)
 
+- Verify the service logic
+```
+$ echo testtesttest > test.txt
+$ curl -X POST <YOUR_API_GATEWAY_ENDPOINT> \
+-H "Content-Type:application/octet-stream" -H "filename:test.txt" --data-binary @test.txt
+```
+
 ## 3. Frontend
 S3 에서 정적 웹 사이트 구성 후 html 컨텐츠 호출
 
@@ -55,14 +62,6 @@ https://docs.aws.amazon.com/ko_kr/AmazonS3/latest/userguide/HostingWebsiteOnS3Se
 
 ### Browser
 ![s3-uploader-website](./images/s3-uploader-website.gif)
-
-### Curl
-```
-$ echo testtesttest > test.txt
-$ curl -X POST https://0zxgbiijja.execute-api.ap-northeast-2.amazonaws.com/default/cloudacode-upload-function -H "Content-Type:application/octet-stream" -H "filename:test.txt" --data-binary @test.txt
-
-test.txt file has been uploaded
-```
 
 ### Postman
 ![s3-uploader-postman](./images/s3-uploader-postman.gif)
