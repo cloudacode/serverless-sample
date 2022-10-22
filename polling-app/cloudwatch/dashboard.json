@@ -1,0 +1,18 @@
+{
+    "widgets": [
+        {
+            "type": "log",
+            "x": 0,
+            "y": 0,
+            "width": 24,
+            "height": 6,
+            "properties": {
+                "query": "SOURCE '/aws/lambda/***' | fields @message\n| filter @message like /(VOTE)/\n| parse 'VOTE *' as page\n| stats count(page) as `Vote Count` by page | sort `Vote Count` desc",
+                "region": "ap-northeast-2",
+                "title": "Votes Per Page",
+                "view": "bar"
+            }
+        }
+    ],
+    "_comment": "Cloudwatch Dashboard for Voting"
+}
