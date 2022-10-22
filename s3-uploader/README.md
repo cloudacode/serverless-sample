@@ -20,7 +20,7 @@ API Gateway 에서 API를 받아서 Lambda를 호출
 ![lambda-add-s3-permission](./images/lambda-add-s3-permission.png)
 
 - Set Environment Variable
->> KEY: `BUCKET_NAME`, VALUE:
+>> KEY: `BUCKET_NAME`, VALUE: `Bucket 이름` (1. S3 Bucket에서 만들었던)
 ![lambda-set-env-variable](./images/lambda-set-env-variable.png)
 
 - Coding!

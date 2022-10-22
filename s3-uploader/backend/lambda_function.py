@@ -1,3 +1,4 @@
+# Code from https://github.com/cloudacode/serverless-sample/s3-uploader
 import logging
 import base64
 import boto3
